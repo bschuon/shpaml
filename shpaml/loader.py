@@ -5,15 +5,16 @@ Based on django's caching template loader.
 import hashlib
 from . import shpaml
 from django.template import TemplateDoesNotExist
+from django.template.loader import BaseLoader
 try:
     #Django 1.2-1.7
-    from django.template.loader import BaseLoader, get_template_from_string, find_template_loader, make_origin
+    from django.template.loader import get_template_from_string, find_template_loader, make_origin
 except ImportError:
     try:
         #Django 1.9
-        from django.template.loaders.base.Loader import Loader as BaseLoader
+        #from django.template.loaders.base.Loader import Loader as BaseLoader
+        from django.template.loader import get_template as get_template_from_string
         from django.template.engine import find_template_loader, make_origin
-        from django.template.engine import get_template as get_template_from_string
     except ImportError:
         # must be Django 1.10!
         raise    
